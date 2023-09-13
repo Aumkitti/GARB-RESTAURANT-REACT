@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Card from "../components/Card";
 
 const URL = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
@@ -13,7 +14,7 @@ const config = {
 };
 
 const Restaurant = () => {
-    const [ restarants, setRestaurants ] = useState([]);
+    const [ restaurants, setRestaurants ] = useState([]);
     useEffect(()=>{
         const ferchAllRestaurants = async () => {
             try {
@@ -25,6 +26,21 @@ const Restaurant = () => {
         };
         ferchAllRestaurants();
     },[])
-  return     <div>Restaurant</div>;
+
+
+  return     <div>
+    <h1>Restaurant</h1>
+    <div className="row">
+        <div className="restaurant">
+            {
+                restaurants.map(restaurant =>{
+                    return(
+                        <Card restaurant={restaurant} key={restaurant.id} />
+                    )
+                })
+            }
+        </div>
+    </div>
+    </div>;
 }
 export default Restaurant;
