@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Card from "../components/Card";
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Card from '../components/Card';
 
-const URL = import.meta.env.VITE_BASE_URL;
+const url = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
 const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
+
 const config = {
     auth: {
         username: USERNAME,
@@ -14,33 +16,36 @@ const config = {
 };
 
 const Restaurant = () => {
-    const [ restaurants, setRestaurants ] = useState([]);
-    useEffect(()=>{
-        const ferchAllRestaurants = async () => {
+    const [restaurants, setRestaurants] = useState([]);
+
+    useEffect(() => {
+        const fetchAllRestaurant = async () => {
             try {
-                const res = await axios.get(`${URL}/restaurants`, config);
+                const res = await axios.get(`${url}/restaurants`, config);
                 setRestaurants(res.data);
-            } catch (error){
+            } catch (error) {
                 console.error(error);
             }
         };
-        ferchAllRestaurants();
-    },[])
+        fetchAllRestaurant();
+    }, []);
 
 
-  return     <div>
-    <h1>Restaurant</h1>
-    <div className="row">
-        <div className="restaurant">
-            {
-                restaurants.map(restaurant =>{
-                    return(
-                        <Card restaurant={restaurant} key={restaurant.id} />
-                    )
-                })
-            }
+    console.log(restaurants);
+    return (
+        <div>
+            <h1>Restaurant</h1>
+            <div className='row'>
+                <div className='restaurants'>
+                    {restaurants.map(restaurant => {
+                        return (
+                            <Card data={restaurant} key={restaurant.id} />
+                        );
+                    })}
+                </div>
+            </div>
         </div>
-    </div>
-    </div>;
-}
+    );
+};
+
 export default Restaurant;
