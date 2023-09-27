@@ -42,7 +42,7 @@ const Add = () => {
       <div className="row-from">
         <div className="col-6 card justify-content-center">
           <h5 className="card-header">Add new restaurant</h5>
-          <div className=""
+          <div className=""></div>
           <div className="card-body">
             <from >
               <div className="from-group">
