@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+/* eslint-disable no-unused-vars */
+import React , {useState} from 'react';
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
-const URL = import.meta.env.VITE_BASE_URL;
+const url = import.meta.env.VITE_BASE_URL;
 const USERNAME = import.meta.env.VITE_BASE_USERNAME;
 const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
+
 const config = {
   auth: {
     username: USERNAME,
@@ -13,80 +15,87 @@ const config = {
 };
 
 const Add = () => {
-  const [restaurant, setRestaurants] = useState ({
-    name:"",
-    type:"",
-    imageurl:"",
+  const [restaurant, setRestaurants] = useState({
+    name: "",
+    type: "",
+    image: ""
   })
   const navigate = useNavigate();
-  const[error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleChange = (e) =>{
-    setRestaurants((perv)=>({...perv, [e.target.name]:e.target.value}));
+  const handleChage = (e) => {
+    setRestaurants((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
   const handleClick = async (e) => {
-    e.perventDefault();
+    e.preventDefault();
     try {
-      await axios.post ();
-      navigate ("/")
+      await axios.post(`${url}/restaurants`, restaurant, config);
+      navigate("/")
     } catch (error) {
       console.error(error);
-      setError(true);
+      setError(true)
     }
   }
-
+  const handleClear = () => {
+    setRestaurants({
+      name: "",
+      type: "",
+      image: "",
+    })
+    setError(false);
+  }
   return (
-    <div className="conrainer">
+    <div className="container">
       <h1>Grab Restaurant</h1>
-      <div className="row-from">
+      <div className="row form">
         <div className="col-6 card justify-content-center">
           <h5 className="card-header">Add new restaurant</h5>
-          <div className=""
-          <div className="card-body">
-            <from >
-              <div className="from-group">
-                <label htmlFor="name">Restaurant image url</label>
-                <input 
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  placeholder="Restaurant name"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="from-group">
-                <label htmlFor="name">Restaurant image url</label>
-                <input
-                  type="text"
+          <div className="card-body"></div>
+          <form>
+            <div className="form-group">
+              <label htmlFor="name">Restaurant name</label>
+              <input
+                type="text"
+                className="form-control"
+                name="name"
+                placeholder="Restaurant name"
+                onChange={handleChage}
+                value={restaurant.name}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">Restaurant type</label>
+              <input
+                type="text"
                 className="form-control"
                 name="type"
                 placeholder="Restaurant type"
-                onChange={handleChange}
-                />
-              </div>
-              <div className="from-group">
-                <label htmlFor="name">Restaurant image url</label>
-                <input
-                  type="text"
+                onChange={handleChage}
+                value={restaurant.type} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="name">Restaurant imageurl</label>
+              <input
+                type="text"
                 className="form-control"
-                name="imageurl"
+                name="image"
                 placeholder="Restaurant image"
-                onChange={handleChange}
-                />
-              </div>
-              <Link to="" className="btn btn-succes"[onchick]>
-                Add
-              </Link>
-              {" "}
-              <Link to="" className="btn btn-danger">
-                Cancel
-              </Link>
-            </from>
-          </div>
+                onChange={handleChage}
+                value={restaurant.image} />
+            </div>
+            <br />
+            <Link to="" className="btn btn-success" onClick={handleClick}>
+              Add
+            </Link>
+            <Link to="/" className="btn btn-danger" onClick={handleClear}>
+              cansel
+            </Link>
+          </form>
         </div>
       </div>
     </div>
   )
 }
-export default Add;
+
+export default Add
