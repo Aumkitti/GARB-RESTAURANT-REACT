@@ -9,6 +9,7 @@ import Search from "./pages/Search"
 import Update from './pages/Update'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
+import Logout from './pages/Logout'
 
 
 
@@ -22,7 +23,8 @@ function App() {
           <Route path="/add" element={<Add />} />
           <Route path="/search" element={<Search />} />
           <Route path="/update/:restaurantId" element={<Update />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={<SignIn/>} />
+          <Route path="/Logout" element={<Logout />} />
           <Route path="/signup" element={<SignUp />} />
 
         </Routes>

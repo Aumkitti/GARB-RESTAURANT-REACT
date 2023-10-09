@@ -1,21 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import AuthService from '../service/auth_service';
 
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-
-
-};
-
-function SignUp() {
+const SignUp = () => {
 
     const [restaurant, setRestaurant] = useState({
         name: "",
@@ -24,21 +13,51 @@ function SignUp() {
     })
     const navigate = useNavigate();
     const [error, setError] = useState(false);
-
+    const [errorMessage, setErrorMessage] = useState({ message: ""});
     const handleChange = (e) => {
-        setRestaurant((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-
+        setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
 
-
+    const handleRestaurantChange = (e) => {
+        setRestaurant((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+    const handleClear = (e) => {
+        setUser({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
+        });
+        setError(false);
+    };
+    const handleClick = async (e) => {
+        e.preventDeFault();
+        try{
+            if (user.confirmPassword === user.password) {
+                const register = await AuthService.register(
+                    user.username,
+                    user.email,
+                    user.password
+                );
+                navigate("/singIn");
+            } else {
+                setError(true);
+                setErrorMessage({ message: "Failed! Password mismatched!"});
+            }
+        } catch (error) {
+            console.error(error);
+            setError(true);
+            setErrorMessage(error.response.data);
+        }
+    };
 
     return (
         <div className="container">
             <h1>Grab Restaurant</h1>
             <div className="row form">
                 <div className="col-6 card justify-content-center">
-                    <h5 className='card-header'>Sign Up</h5>
-                    <div className="error">{error && "somethingwrong"}</div>
+                    <h5 className='card-header'>Register a new User</h5>
+                    <div className="error">{error && errorMessage.message}</div>
                     <div className="card-body">
 
                         <form>

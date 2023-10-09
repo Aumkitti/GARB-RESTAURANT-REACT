@@ -1,21 +1,10 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import AuthService from '../service/auth_service';
 
-const URL = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-
-
-};
-
-function SignIn() {
+const SignIn = () => {
 
     const [restaurant, setRestaurant] = useState({
         name: "",
@@ -30,6 +19,15 @@ function SignIn() {
 
     }
 
+    const handleSignIn = async () => {
+        try {
+            const response = await AuthService.post(user.username, user.password);
+            navigate("/");         
+        } catch (error) {
+            console.error(error);
+            setError(true);
+        }
+    }
 
 
     return (

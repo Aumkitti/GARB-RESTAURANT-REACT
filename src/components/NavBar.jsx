@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React,{useState} from "react";
 import { Link } from 'react-router-dom';
-import "bootstrap/dist/css/bootstrap.min.css"
+import AuthService from "../service/auth_service";
+
 
 const NavBar = () => {
+    const [ user, setUser] = useState(AuthService)
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <Link className="navbar-brand" to="/">Grab Restaurant</Link>
@@ -23,14 +25,21 @@ const NavBar = () => {
                     <li className="nav-item">
                         <Link className="nav-link " to="/search">Search</Link>
                     </li>
-
+                    {!user && (
                     <li className="nav-item">
-                        <Link className="nav-link " to="/signin">Signin</Link>
+                        <Link className="nav-link " to="/signIn">SignIn</Link>
                     </li>
-
+                    )}
+                    {!user && (
                     <li className="nav-item">
-                        <Link className="nav-link " to="/signup">Signup</Link>
+                        <Link className="nav-link " to="/signUp">SignUp</Link>
                     </li>
+                    )}
+                    {user && (
+                        <li className="nav-item">
+                            <Link className="nav-link " to="/Logout">Logout</Link>
+                        </li>
+                    )}
                 </ul>
 
             </div>
