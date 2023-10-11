@@ -2,7 +2,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import AuthService from '../service/auth_service';
-
 export const Logout = () => {
     const navigate = useNavigate();
     const handleLogout = () =>{

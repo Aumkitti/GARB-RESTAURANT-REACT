@@ -13,7 +13,7 @@ const config = {
 
 const login = async (username, password) => {
     const response = await axios.post(
-        API_URL + "signIn",
+        API_URL + "signin",
         { username, password },
         config
     );

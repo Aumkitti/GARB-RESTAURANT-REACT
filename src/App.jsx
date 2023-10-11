@@ -7,28 +7,30 @@ import Restaurant from "./pages/Restaurant"
 import Add from "./pages/Add"
 import Search from "./pages/Search"
 import Update from './pages/Update'
-import SignUp from './pages/SignUp'
-import SignIn from './pages/SignIn'
+import SignUp from './pages/Signup'
+import SignIn from './pages/Signin'
 import Logout from './pages/Logout'
-
+import Layout from './components/Layout'
+import ProtectedRoute from './pages/ProtectedRoute'
 
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar />
-      <div className="App">
         <Routes>
+          <Route>
+          <Route path="/" element={<Layout/>} />
           <Route path="/" element={<Restaurant />} />
           <Route path="/add" element={<Add />} />
           <Route path="/search" element={<Search />} />
           <Route path="/update/:restaurantId" element={<Update />} />
-          <Route path="/signin" element={<SignIn/>} />
+          <Route path="/signIn" element={<SignIn/>} />
           <Route path="/Logout" element={<Logout />} />
-          <Route path="/signup" element={<SignUp />} />
-
+          <Route path="/signUp" element={<SignUp />} /> 
+          
+          </Route>         
         </Routes>
-      </div>
     </BrowserRouter>
   )
 }

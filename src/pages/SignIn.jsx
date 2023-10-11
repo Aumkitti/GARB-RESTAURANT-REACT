@@ -1,105 +1,86 @@
-/* eslint-disable no-undef */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../service/auth_service';
-
-const SignIn = () => {
-
-    const [restaurant, setRestaurant] = useState({
-        name: "",
-        type: "",
-        image: ""
-    })
+const Signin = () => {
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    });
     const navigate = useNavigate();
     const [error, setError] = useState(false);
 
     const handleChange = (e) => {
-        setRestaurant((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
 
-    }
-
-    const handleSignIn = async () => {
+    const handleSignin = async (e) => {
+        e.preventDefault();
         try {
-            const response = await AuthService.post(user.username, user.password);
-            navigate("/");         
+            const login = await AuthService.login(user.username, user.password);
+            // Send a POST request to the sign-in endpoint with user credentials (email and password).
+            // await axios.post(`${URL}/signin`, user);
+
+            // Assuming successful sign-in, you can navigate to a dashboard or profile page.
+            navigate('/');
         } catch (error) {
             console.error(error);
             setError(true);
         }
-    }
-
+    };
 
     return (
         <div className="container">
-            <h1>Grab Restaurant</h1>
+            <h1>Sign In</h1>
             <div className="row form">
-                <div className="col-6 card justify-content-center">
-                    <h5 className='card-header'>Sign Up</h5>
-                    <div className="error">{error && "somethingwrong"}</div>
+                <li className="col-6 card justify-content-center">
+                    <h5 className="card-header">Login to Your Account</h5>
+                    {/* <div className="error">{error && 'Incorrect email or password.'}</div> */}
                     <div className="card-body">
-
                         <form>
                             <div className="form-group">
-                                <label htmlFor="name">Username</label>
+                                <label htmlFor="user">Username</label>
                                 <input
-                                    type="text"
-                                    className='form-control'
-                                    name="name"
-                                    placeholder='Username'
+                                    type="user"
+                                    className="form-control"
+                                    name="user"
+                                    placeholder="Username"
                                     onChange={handleChange}
-                                    value={restaurant.name} />
-                            </div>
-
-
-                            <div className="form-group">
-                                <label htmlFor="type">Email</label>
-                                <input
-                                    type="text"
-                                    className='form-control'
-                                    name="type"
-                                    placeholder='Email'
-                                    onChange={handleChange}
-                                    value={restaurant.type} />
-                            </div>
-
-
-                            <div className="form-group">
-                                <label htmlFor="image">Password</label>
-                                <input
-                                    type="text"
-                                    className='form-control'
-                                    name="image"
-                                    placeholder='Password'
-                                    onChange={handleChange}
-                                    value={restaurant.image} />
+                                    value={user.username}
+                                />
                             </div>
 
                             <div className="form-group">
-                                <label htmlFor="image">Confirmpassword</label>
+                                <label htmlFor="password">Password</label>
                                 <input
-                                    type="text"
-                                    className='form-control'
-                                    name="image"
-                                    placeholder='Confirmpassword'
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    placeholder="Password"
                                     onChange={handleChange}
-                                    value={restaurant.image} />
+                                    value={user.password}
+                                />
                             </div>
+                            <br />
+                            <button
+                                type="submit"
 
-                            <Link to="" className='btn btn-success' >
-                                sing up
+                                className="btn btn-success"
+                                onClick={handleSignin}
+                            >
+                                Sign In
+                            </button>
+                            &nbsp;
+                            <Link to="/signup" className="btn btn-secondary">
+                                Don't have an account? Sign Up
                             </Link>
-                            <Link to="/" className='btn btn-danger' >
-                                Cancel
-                            </Link>
-
-
                         </form>
                     </div>
-                </div>
+                </li>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SignIn
+export default Signin;
