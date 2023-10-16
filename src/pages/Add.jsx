@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -12,6 +13,7 @@ const config = {
     username: USERNAME,
     password: PASSWORD,
   },
+  header: authHeader(),
 };
 
 const Add = () => {
