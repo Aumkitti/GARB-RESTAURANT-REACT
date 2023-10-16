@@ -2,13 +2,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-// eslint-disable-next-line no-unused-vars
-const AdminRoute = ({ children }) => {
+const AdminRoute = ({ chidren }) => {
     const { user } = useAuthContext();
     if (!user) {
-        return <Navigate to="/signin" />;
+        return <Navigate to="/signin" />
     }
-    if(!user.roles.includes("ROLES_ADMIN")) return <Navigate to="/notallow" />;
-    return children;
+    if (!user.roles.includes("ROLES_ADMIN")) return <Navigate to="/notallow" />;
+    return chidren;
 }
 export default AdminRoute;

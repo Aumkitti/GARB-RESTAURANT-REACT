@@ -7,32 +7,57 @@ import Restaurant from "./pages/Restaurant"
 import Add from "./pages/Add"
 import Search from "./pages/Search"
 import Update from './pages/Update'
-import SignUp from './pages/Signup'
-import SignIn from './pages/Signin'
+import Signin from './pages/Signin'
+import Signup from './pages/SignUp'
 import Logout from './pages/Logout'
 import Layout from './components/Layout'
 import ProtectedRoute from './pages/ProtectedRoute'
+import AdminRoute from './pages/AdminRoute'
+import NotAllow from './pages/Notallow'
+import Profile from './pages/Profile'
 
 
 function App() {
+
+
   return (
     <BrowserRouter>
-      <NavBar />
-        <Routes>
-          <Route>
-          <Route path="/" element={<Layout/>} />
-          <Route path="/" element={<Restaurant />} />
-          <Route path="/add" element={<Add />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/update/:restaurantId" element={<Update />} />
-          <Route path="/signIn" element={<SignIn/>} />
-          <Route path="/Logout" element={<Logout />} />
-          <Route path="/signUp" element={<SignUp />} /> 
-          
-          </Route>         
-        </Routes>
-    </BrowserRouter>
-  )
+
+      <Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Restaurant />} />
+          <Route
+            path="add"
+            element={
+              <AdminRoute>
+                <Add />
+              </AdminRoute>
+            }
+          />
+
+
+          <Route path="search" element=
+            {<ProtectedRoute>
+              <Search />
+            </ProtectedRoute>
+            } />
+          <Route path="NotAllow" element={<NotAllow />} />
+          <Route path="Update/:restaurantId" element={<Update />} />
+          <Route path="Signin" element={<Signin />} />
+          <Route path="Signup" element={<Signup />} />
+          <Route path="Logout" element={<Logout />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="update" element={<Update/>} />
+
+        </Route>
+      </Routes>
+
+
+
+
+
+    </BrowserRouter >
+  );
 }
 
 export default App;

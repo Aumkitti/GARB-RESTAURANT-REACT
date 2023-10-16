@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from 'react'
 
-const Notallow = () => {
+function NotAllow() {
   return (
-    <div>Notallow</div>
+    <div>NotAllow</div>
   )
 }
 
-export default Notallow
+export default NotAllow;

@@ -29,13 +29,13 @@ const NavBar = () => {
                                 aria-current="page" to="/">
                                 Home</Link>
                         </li>
-
-                        <li className="nav-item">
-                            <Link className="nav-link" to="add">
-                                Add
-                            </Link>
-                        </li>
-
+                        {user && user.roles.includes("ROLES_ADMIN")&&(
+                            <li className="nav-item">
+                                <Link className="nav-link" to="add">
+                                    Add
+                                </Link>
+                            </li>
+                        )}
 
                         <li className="nav-item">
                             <Link className="nav-link" to="search">

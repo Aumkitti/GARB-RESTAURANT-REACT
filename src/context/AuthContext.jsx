@@ -1,19 +1,36 @@
-/* eslint-disable react-refresh/only-export-components */
-import { useContext, createContext, useState } from "react";
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useContext, createContext, useState, useEffect } from "react";
 import AuthService from "../service/auth_service";
+
 const AuthContext = createContext(null);
-// eslint-disable-next-line react/prop-types
-export const AuthProvider = ({children}) =>{
-    const [user, setUser] = useState(null);
-    const login = (user) =>setUser(user);
-    const logout = () =>{
-        AuthService.logout;
+
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState(getUser);
+
+    const login = (user) =>
+        setUser(user);
+
+
+    const logout = () => {
+        AuthService.logout();
         setUser(null);
+    };
+    function getUser () {
+        const temp = localStorage.getItem('user');
+        const savedUser = JSON.parse(temp);
+        return savedUser || null;
     }
-    return(
-        <AuthContext.Provider value={{user, login, logout}}>
+    useEffect(()=>{
+        const temp = JSON.stringify(user)
+        localStorage.setItem('user', temp);
+    }, [user]);
+
+    return (
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
+
 export const useAuthContext = () => useContext(AuthContext);
