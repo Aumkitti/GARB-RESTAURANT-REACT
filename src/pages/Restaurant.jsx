@@ -1,22 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from "../service/api"
 import Card from '../components/Card';
 import authHeader from '../service/auth-header';
 
-
-const url = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-    auth: {
-        username: USERNAME,
-        password: PASSWORD,
-    },
-    header:authHeader(),
-};
 
 const Restaurant = () => {
     const [restaurants, setRestaurants] = useState([]);
@@ -24,7 +12,7 @@ const Restaurant = () => {
     useEffect(() => {
         const fetchAllRestaurant = async () => {
             try {
-                const res = await axios.get(`${url}/restaurants`, config);
+                const res = await api.get(`/restaurants`, config);
                 setRestaurants(res.data);
             } catch (error) {
                 console.error(error);

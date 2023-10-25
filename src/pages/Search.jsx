@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
-
+import api from "../service/api"
 const url = import.meta.env.VITE_BASE_URL;
 
 const Search = () => {
@@ -17,7 +16,7 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`${url}/restaurants`, {
+      const response = await api.get(`/restaurants`, {
         params: {
           search: searchTerm,
         },

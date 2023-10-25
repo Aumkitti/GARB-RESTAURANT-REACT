@@ -2,19 +2,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-
-const url = import.meta.env.VITE_BASE_URL;
-const USERNAME = import.meta.env.VITE_BASE_USERNAME;
-const PASSWORD = import.meta.env.VITE_BASE_PASSWORD;
-
-const config = {
-  auth: {
-    username: USERNAME,
-    password: PASSWORD,
-  },
-  header: authHeader(),
-};
+import api from "../service/api";
 
 const Add = () => {
   const [restaurant, setRestaurants] = useState({
@@ -32,7 +20,7 @@ const Add = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${url}/restaurants`, restaurant, config);
+      await api.post(`/restaurants`, restaurant);
       navigate("/")
     } catch (error) {
       console.error(error);
